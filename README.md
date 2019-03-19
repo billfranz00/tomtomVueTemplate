@@ -2,6 +2,14 @@
 
 > Testing out TomTom Map API
 
+### Credentials
+```
+Create Account on developer.tomtom.com
+  - Create new project, gather API Key, and replace <your_key_here> with it
+  - Download Web SDK and add folder (sdk/) inside project directory
+
+```
+
 ## Build Setup
 
 ``` bash
