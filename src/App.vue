@@ -18,12 +18,18 @@
     </ul>
     <h2>TomTom Map</h2>
     <div id="map"></div>
+    <TomtomMap />
   </div>
 </template>
 
 <script>
+import TomtomMap from "./components/TomtomMap";
+
 export default {
   name: 'app',
+  components: {
+    TomtomMap
+  },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
@@ -58,6 +64,28 @@ export default {
     }).addTo(this.map));
 
     console.log(this.markers);
+
+    tomtom.L.popup()
+      .setLatLng([52.360306, 4.876935])
+      .setContent('Yo Bro, Where You At?...')
+      .openOn(this.map);
+
+    // Since map is inserted into element, need to add event handler to the actual map
+    this.map.on('click', this.displayCoordinates);
+  },
+  methods: {
+    displayCoordinates(e) {
+      tomtom.L.popup()
+        .setLatLng(e.latlng)
+        .setContent(
+          "<h4>Deez Coordinates Are: " + 
+          e.latlng.lat.toFixed(2) + 
+          ", " + 
+          e.latlng.lng.toFixed(2) + 
+          "</h4>"
+        )
+        .openOn(this.map);
+    }
   }
 }
 </script>
@@ -69,7 +97,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 20px;
 }
 
 h1, h2 {
@@ -93,6 +121,6 @@ a {
 #map {
   height: 500px;
   width: auto;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 </style>
